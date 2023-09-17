@@ -44,7 +44,7 @@ export default {
             title,
             originalTitle: original_title,
             language: original_language,
-            vote: vote_average,
+            vote: Math.floor(vote_average/2),
             image: "https://image.tmdb.org/t/p/w342" + poster_path,
            }
         })
@@ -70,7 +70,7 @@ export default {
         title: name,
         orginalTitle: original_name,
         language: original_language,
-        vote: vote_average,
+        vote: Math.floor(vote_average/2),
         image: "https://image.tmdb.org/t/p/w342" + poster_path,
         }
       }) 

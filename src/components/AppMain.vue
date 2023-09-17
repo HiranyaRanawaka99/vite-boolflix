@@ -24,9 +24,7 @@ export default {
 
 <template>
 
-  <div class=" main container mt-4">
-    <hr>
-
+  <div class=" main container">
     <MovieList></MovieList>
     <SeriesList></SeriesList>
     

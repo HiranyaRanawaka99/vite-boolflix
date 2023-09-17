@@ -19,17 +19,18 @@ export default {
 
 
 <template>
-    <div class="row g-4 row-cols-2 row-cols-md-3 row-cols-lg-4">
+    <div class="row g-4 row-cols-2 row-cols-md-3 row-cols-lg-4 mt-3">
         <div 
         v-for="show in store.series"
-        class="show-card">
-            <!-- <img :src="movie.image" class="card-img-top" alt="..."> -->
-            <div 
-            class="card-body">
-            <h5> {{  show.title  }}</h5>
-            <p> <span>Titolo originale: </span> {{ show.originalTitle }}</p>
-            <p> <span>Lingua originale: </span> {{ show.language  }}</p>
-            <p> <span>Voto: </span> {{ show.vote}}</p>
+        class="col">
+            <div class="show-card">
+                <img :src="show.image" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5> {{  show.title  }}</h5>
+                    <p> <span>Titolo originale: </span> {{ show.originalTitle }}</p>
+                    <p> <span>Lingua originale: </span> {{ show.language  }}</p>
+                    <p> <span>Voto: </span> {{ show.vote}}</p>
+                </div>
             </div>
         </div>
     </div>
@@ -39,12 +40,30 @@ export default {
 <style lang="scss" scoped>
 
 .show-card {
-    padding: 1rem;
     text-align: center;
 
-    .card-body {
+    position: relative;
 
-    
+    &:hover .card-body {
+        display: block;
+    }
+    .card-body {
+        position: absolute;
+        top: 0;
+        left: 0;
+        
+        display: none;
+       
+        width: 100%;
+        height: 100%;
+        padding: 3rem 2rem;
+        background-color: black;    
+
+
+
+
+
+
 
         span {
             font-weight: bold;
