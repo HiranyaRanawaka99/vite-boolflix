@@ -1,62 +1,18 @@
 <script>
-
-// Import axios
-import axios from 'axios';
-
-//Import my data-store
-import store from './data/store';
-
-// Import components
-import SearchBar from './ui/SearchBar.vue';
-
 export default {
-  data() {
-    return {
-      store,
-      api: {
-        uriMovie: 'https://api.themoviedb.org/3/search/movie?api_key=ef16f090919bb21b4e359c3b6c66f367',
-      }
-
+  data(){
+    return{
+        searchedTerm: '',
     }
-  },
-
-  // METODI
-  methods: {
-    // Chiamata all'API 
-    fetchMovie(endpoint) {
-      axios
-      .get(endpoint)
-      .then((response) => {
-        const movieData= response.data.results.map((movie) => {
-          return { 
-            id: movie.id,
-            title: movie.title,
-            originalTitle: movie.original_title,
-            originalLanguage: movie.original_language,
-            popularity: movie.popularity
-           }
-        })
-        store.movies = movieData
-        console.log(movieData)
-        })
+    },
+    
+    props: {
+        searchText: String,
     },
 
-    //Filtro cerca film tramite input 
-    searchedMovie(searchedTerm) {
-      const fullApiUri = `${this.api.uriMovie}&query=${searchedTerm}`;
-      this.fetchMovie(fullApiUri);
-    }
-  },
-
-  // CREATED
-  created() {
-    this.fetchMovie(this.api.uriMovie)
-  },
-
-  // COMPONENTS
-  components: { SearchBar }
-
+    emits: ['searchMovie']
 }
+ 
 </script>
 
 
@@ -76,10 +32,22 @@ export default {
    
   </div>
   <div classs="searchbar">
-    <SearchBar
-    searchText = 'Titoli, persone, genere'
-    @searchMovie = searchedMovie
-    />
+    <form 
+        @submit.prevent = "$emit('searchMovie', searchedTerm )"
+        class="input-group mb-3">
+        <input 
+             v-model="searchedTerm"
+            :placeholder= "searchText|| 'Cerca'"
+            type="text" 
+            class="form-control" 
+            aria-label="Recipient's username" aria-describedby="button-addon2"
+        />
+         <button 
+            class="btn btn-outline-secondary" 
+            type="button" 
+            id="button-addon2">Cerca
+        </button>
+    </form>
   </div>
 </nav>
 

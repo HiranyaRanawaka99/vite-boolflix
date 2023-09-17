@@ -1,11 +1,11 @@
 <script>
 
 // MY DATA STORE
-import store from './data/store.js';
+import { store } from './data/store.js';
 
 // Import components
-import MovieList from './movies/MovieList.vue';
-
+import MovieList from './Screen/MovieList.vue';
+import SeriesList from './Screen/SeriesList.vue';
 
 
 export default {
@@ -16,7 +16,7 @@ export default {
   },
 
 
-  components: { MovieList }
+  components: { MovieList, SeriesList }
 }
 
 </script>
@@ -24,14 +24,16 @@ export default {
 
 <template>
 
-  <div class=" main container">
+  <div class=" main container mt-4">
+    <hr>
 
     <MovieList></MovieList>
+    <SeriesList></SeriesList>
+    
   </div>
 
 </template>
 
 
 <style lang="scss" scoped>
-
 </style>
