@@ -19,17 +19,21 @@ export default {
 
 
 <template>
-     <div v-if="store.movies.length <= 0" class="alert alert-danger" role="alert">
+     <!-- <div v-if="store.movies.length <= 0" class="alert alert-danger" role="alert">
         Movie/Series not found!
-    </div>
-    <div v-else class="row g-4 row-cols-2 row-cols-md-3 row-cols-lg-4 mt-3">
+    </div> -->
+    <div class="row g-4 row-cols-2 row-cols-md-3 row-cols-lg-4 mt-3">
         <div v-for="movie in store.movies" class=" col">
             <div class="movie-card">
                 <img :src="movie.image" class="card-img" alt="...">
                 <div class="card-body">
                     <h5 class="movie-title"> {{  movie.title  }}</h5>
                     <p class="original-title"> <span>Titolo originale: </span> {{ movie.originalTitle }}</p>
-                    <p class="original-language"> <span>Lingua originale: </span> {{ movie.language  }}</p>
+                    <p class="language"> <span>Lingua originale: </span>
+                        <img v-if="movie.language == 'en'" src="../../assets/img/en.gif">
+                        <img v-else-if="movie.language == 'it'" src="../../assets/img/it.gif"/>
+                        <p v-else> {{ movie.language }}</p>
+                    </p>
                     <p class="popularity"> 
                         <span>Voto: </span> 
                         <span v-for="star in movie.vote" class="solidStar">
@@ -84,6 +88,10 @@ export default {
         .regularStar {
             color:rgb(208, 204, 204);
         }
+    }
+    .language > img {
+        width: 20px;
+        height: 15px;
     }
 }
 

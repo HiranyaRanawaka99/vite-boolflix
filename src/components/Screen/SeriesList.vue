@@ -22,7 +22,11 @@ export default {
             <div class="card-body">
                 <h5> {{  show.title  }}</h5>
                 <p> <span>Titolo originale: </span> {{ show.originalTitle }}</p>
-                <p> <span>Lingua originale: </span> {{ show.language }}</p>
+                <p class="language"> <span>Lingua originale: </span>
+                    <img v-if="show.language == 'en'" src="../../assets/img/en.gif">
+                    <img v-else-if="show.language == 'it'" src="../../assets/img/it.gif"/>
+                    <p v-else> {{ show.language }}</p>
+                </p>
                 <p> 
                 <span>Voto: </span> 
                 <span v-for="star in show.vote" class="solidStar">
@@ -69,6 +73,11 @@ export default {
         .regularStar {
             color:rgb(208, 204, 204);
         }
+    }
+
+    .language > img {
+        width: 20px;
+        height: 15px;
     }
 }
 </style>
