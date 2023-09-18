@@ -1,8 +1,9 @@
 <script>
+import { store } from './data/store';
 export default {
   data(){
     return{
-        searchedTerm: '',
+        store,
     }
     },
     
@@ -10,7 +11,7 @@ export default {
         searchText: String,
     },
 
-    emits: ['searchMovie']
+    emits: ['searchMovie', 'clickMovie']
 }
  
 </script>
@@ -20,7 +21,7 @@ export default {
 
 <nav>
   <div class="logo">
-    <h1> BOOFLIX </h1>
+    <h1> <a href=""> BOOLFLIX </a> </h1>
   </div>
   <div class="navigate">
     <p><a href="#"> Home </a></p>
@@ -33,16 +34,17 @@ export default {
   </div>
   <div classs="searchbar">
     <form 
-        @submit.prevent = "$emit('searchMovie', searchedTerm )"
+        @submit.prevent = "$emit('searchMovie', store.searchedTerm )"
         class="input-group mb-3">
         <input 
-             v-model="searchedTerm"
+             v-model="store.searchedTerm"
             :placeholder= "searchText|| 'Cerca'"
             type="text" 
             class="form-control" 
             aria-label="Recipient's username" aria-describedby="button-addon2"
         />
-         <button 
+         <button
+         @click = "$emit('clickMovie', store.searchedTerm)"
             class="btn btn-outline-secondary" 
             type="button" 
             id="button-addon2">Cerca
@@ -62,7 +64,7 @@ nav {
   justify-content: space-between;
   align-items: center;
 
-  .logo {
+  h1 > a{
     color: $color-primary;
   }
   .navigate {

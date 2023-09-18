@@ -10,8 +10,7 @@ import AppLoader from './components/AppLoader.vue';
 import AppHeader from './components/AppHeader.vue';
 import AppMain from './components/AppMain.vue';
 
-
-
+const alert = document.getElementsByClassName('alert');
 
 export default {
   data() {
@@ -52,7 +51,7 @@ export default {
             language: original_language,
             vote: Math.floor(vote_average/2),
             image: "https://image.tmdb.org/t/p/w342" + poster_path,
-          }    
+          } 
       })
     })
     // End loading
@@ -96,6 +95,7 @@ export default {
         })
       })
 
+
       // // End loading
       .finally (() => {
         store.isLoading = false;
@@ -131,7 +131,11 @@ export default {
         vote: Math.floor(vote_average/2),
         image: "https://image.tmdb.org/t/p/w342" + poster_path,
         }
-      }) 
+      })
+
+      if (store.series.length < 0) {
+        alert.innerHTML = 'not found'
+      }
     })
 
     // End Loading 
@@ -171,12 +175,12 @@ export default {
 
 
 <template>
+  <AppLoader v-if="store.isLoading"/>
   <div class="wrapper">
-    <AppLoader
-      v-if="isLoading"/>
     <AppHeader
     searchText = 'Titoli, persone, genere'
-    @searchMovie = "searchedMovie" />
+    @searchMovie = "searchedMovie" 
+    @clickMovie = "searchedMovie" />
     <AppMain/>
  </div>
 

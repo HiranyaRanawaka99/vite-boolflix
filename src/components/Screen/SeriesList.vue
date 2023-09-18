@@ -17,11 +17,8 @@ export default {
 </script>
 <template>
     <div class="row g-4 row-cols-2 row-cols-md-3 row-cols-lg-4 mt-3">
-        <div class="col">
         <div v-for="show in store.series" class="show-card">
-            <div class="card-img">
-                <img :src="show.image" class="card-img-top" alt="...">
-            </div>
+            <img :src="show.image" class="card-img-top" alt="...">
             <div class="card-body">
                 <h5> {{  show.title  }}</h5>
                 <p> <span>Titolo originale: </span> {{ show.originalTitle }}</p>
@@ -37,7 +34,6 @@ export default {
                 </p>
             </div>
         </div>
-    </div>
     </div>
 </template>
 
