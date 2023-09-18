@@ -6,8 +6,10 @@ import axios from 'axios';
 import { store } from './components/data/store';
 
 // Import components
+import AppLoader from './components/AppLoader.vue';
 import AppHeader from './components/AppHeader.vue';
 import AppMain from './components/AppMain.vue';
+
 
 
 
@@ -18,6 +20,7 @@ export default {
       api: {
         uriMovie: 'https://api.themoviedb.org/3/search/movie?api_key=ef16f090919bb21b4e359c3b6c66f367',
         uriSeries: 'https://api.themoviedb.org/3/search/tv?api_key=ef16f090919bb21b4e359c3b6c66f367',
+        uriMostPopular: 'https://api.themoviedb.org/3/movie/popular?api_key=ef16f090919bb21b4e359c3b6c66f367',
       }
 
     }
@@ -25,8 +28,51 @@ export default {
 
   // METODI
   methods: {
-    // Chiamata API movies
+
+    mostPopular(endpoint) {
+      // Loading
+      // store.isLoading = true,
+
+      axios
+      .get(endpoint)
+      .then((response) => {
+        store.MostPopularMovies = response.data.results.map((popular)=>{
+          const  {
+            id,
+            title,
+            original_title,
+            original_language,
+            vote_average,
+            poster_path,
+          } = popular
+          return { 
+            id,
+            title,
+            originalTitle: original_title,
+            language: original_language,
+            vote: Math.floor(vote_average/2),
+            image: "https://image.tmdb.org/t/p/w342" + poster_path,
+          }    
+      })
+    })
+    // End loading
+      // .finally (() => {
+      //   store.isLoading = false;
+      // })
+
+
+    // Errore
+    .catch((error) => {
+        console.error(error)
+        store.mostPopular = [ ];
+      })
+    },
+    
+    // CHIAMATA API MOVIES
     fetchMovie(endpoint) {
+
+      // store.isLoading = true;
+
       axios
       .get(endpoint)
       .then((response) => {
@@ -49,10 +95,22 @@ export default {
            }
         })
       })
+
+      // // End loading
+      // .finally (() => {
+      //   store.isLoading = false;
+      // })
+
+      //Error
+      .catch((error) => {
+        console.error(error)
+        store.movies = [ ];
+      })
     },
 
-    // Chiamata API series
+    // CHIAMATA API SERIES
   fetchSeries(endpoint) {
+    // store.isLoading = true;
     axios
     .get(endpoint)
     .then((response) => {
@@ -74,11 +132,21 @@ export default {
         image: "https://image.tmdb.org/t/p/w342" + poster_path,
         }
       }) 
-      console.log(store.series)
     })
+
+    // End Loading 
+    // .finally (() => {
+    //   store.isLoading = false;
+    // })
+
+      // Error
+    .catch((error) => {
+        console.error(error)
+        store.series = [ ];
+      })
   },
 
-    //Filtro cerca film/ serie tramite input 
+    //FILTRO CERCA FILM/SERIE
     searchedMovie(searchedTerm) {
       const fullApiUri = `${this.api.uriMovie}&query=${searchedTerm}`;
       this.fetchMovie(fullApiUri);
@@ -90,13 +158,13 @@ export default {
 
   // CREATED
   created() {
+    this.mostPopular(this.api.uriMovie)
     this.fetchMovie(this.api.uriMovie);
-    this.fetchSeries(this.api.uriSeries);
+    this.fetchSeries(this.api.uriMostPopular);
   },
 
   // COMPONENTS
-
-components: { AppHeader, AppMain }
+  components: { AppHeader, AppMain, AppLoader }
 
 }
 </script>
@@ -104,12 +172,13 @@ components: { AppHeader, AppMain }
 
 <template>
   <div class="wrapper">
+    <AppLoader/>
     <AppHeader
     searchText = 'Titoli, persone, genere'
-    @searchMovie = "searchedMovie"
-   />
+    @searchMovie = "searchedMovie" />
     <AppMain/>
-  </div>
+ </div>
+
 </template>
 
 

@@ -4,9 +4,9 @@
 import { store } from './data/store.js';
 
 // Import components
+import MostPopular from './Screen/MostPopular.vue';
 import MovieList from './Screen/MovieList.vue';
 import SeriesList from './Screen/SeriesList.vue';
-
 
 export default {
   data() {
@@ -14,24 +14,26 @@ export default {
         store,
     }
   },
-
-
-  components: { MovieList, SeriesList }
+  components: { MostPopular, MovieList, SeriesList }
 }
+
 
 </script>
 
 
 <template>
 
-  <div class=" main container">
-    <MovieList></MovieList>
-    <SeriesList></SeriesList>
-    
-  </div>
+  <MostPopular></MostPopular>
+  <MovieList></MovieList>
+  <SeriesList></SeriesList>
 
 </template>
 
 
 <style lang="scss" scoped>
+
+.random-screen {
+  min-height: 100%;
+  background-color: brown;
+}
 </style>

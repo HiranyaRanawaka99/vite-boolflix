@@ -19,7 +19,7 @@ export default {
 
 
 <template>
-    <div class="row g-4 row-cols-2 row-cols-md-3 row-cols-lg- mt-3">
+    <div class="row g-4 row-cols-2 row-cols-md-3 row-cols-lg-4 mt-3">
         <div 
         v-for="movie in store.movies"
         class=" col">
