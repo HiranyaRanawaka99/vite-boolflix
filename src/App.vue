@@ -31,7 +31,7 @@ export default {
 
     mostPopular(endpoint) {
       // Loading
-      // store.isLoading = true,
+      store.isLoading = true,
 
       axios
       .get(endpoint)
@@ -56,9 +56,9 @@ export default {
       })
     })
     // End loading
-      // .finally (() => {
-      //   store.isLoading = false;
-      // })
+      .finally (() => {
+        store.isLoading = false;
+      })
 
 
     // Errore
@@ -71,7 +71,7 @@ export default {
     // CHIAMATA API MOVIES
     fetchMovie(endpoint) {
 
-      // store.isLoading = true;
+      store.isLoading = true;
 
       axios
       .get(endpoint)
@@ -97,9 +97,9 @@ export default {
       })
 
       // // End loading
-      // .finally (() => {
-      //   store.isLoading = false;
-      // })
+      .finally (() => {
+        store.isLoading = false;
+      })
 
       //Error
       .catch((error) => {
@@ -110,7 +110,7 @@ export default {
 
     // CHIAMATA API SERIES
   fetchSeries(endpoint) {
-    // store.isLoading = true;
+    store.isLoading = true;
     axios
     .get(endpoint)
     .then((response) => {
@@ -135,9 +135,9 @@ export default {
     })
 
     // End Loading 
-    // .finally (() => {
-    //   store.isLoading = false;
-    // })
+    .finally (() => {
+      store.isLoading = false;
+    })
 
       // Error
     .catch((error) => {
@@ -172,7 +172,8 @@ export default {
 
 <template>
   <div class="wrapper">
-    <AppLoader/>
+    <AppLoader
+      v-if="isLoading"/>
     <AppHeader
     searchText = 'Titoli, persone, genere'
     @searchMovie = "searchedMovie" />
